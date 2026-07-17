@@ -25,9 +25,17 @@ try {
     $productController = new ProductController($productService);
 
     $router->get('/productos', [$productController, 'index']);
+    $router->get('/productos/{id}', [$productController, 'show']);
+    $router->post('/productos', [$productController, 'store']);
+    $router->put('/productos/{id}', [$productController, 'update']);
+    $router->delete('/productos/{id}', [$productController, 'destroy']);
 
 
     $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-} catch (\Throwable $e) {
+}
+catch (\InvalidArgumentException $e) {
+    Response::json(['error' => $e->getMessage()], 400);
+}
+catch (\Throwable $e) {
     Response::json(['error' => $e->getMessage()], 500);
 }

@@ -10,8 +10,8 @@ class Product {
 
     public function __construct(?int $id, string $nombre, ?string $descripcion, float $precio) {
         $this->id = $id;
-        $this->nombre = $nombre;
-        $this->descripcion = $descripcion;
+        $this->setNombre($nombre);
+        $this->setDescripcion($descripcion);
         $this->setPrecio($precio);
     }
 

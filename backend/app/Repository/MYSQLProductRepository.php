@@ -18,23 +18,55 @@ class MYSQLProductRepository implements ProductRepositoryInterface {
     }
 
     public function findById(int $id): ?array {
-        // Aquí iría la lógica para obtener un producto por su ID desde la base de datos
-       
+        $sql = "SELECT id, nombre, descripcion, precio, created_at, updated_at FROM " . self::TABLE . " WHERE id = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([
+            'id' => $id
+        ]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
     }
 
     public function create(array $data): array {
-        // Aquí iría la lógica para crear un nuevo producto en la base de datos
-        return ['id' => 4, 'name' => $data['name'], 'price' => $data['price']];
+        $sql = "INSERT INTO " . self::TABLE . " (nombre, descripcion, precio) VALUES (:nombre, :descripcion, :precio)";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([
+            'nombre' => $data['nombre'],
+            'descripcion' => $data['descripcion'],
+            'precio' => $data['precio'],
+        ]);
+        return [
+            'id' => (int)$this->connection->lastInsertId(),
+            'nombre' => $data['nombre'],
+            'descripcion' => $data['descripcion'],
+            'precio' => (float)$data['precio'],
+        ];
     }
 
     public function update(int $id, array $data): ?array {
-        // Aquí iría la lógica para actualizar un producto existente en la base de datos
-       
+        $sql = "UPDATE " . self::TABLE . " SET nombre = :nombre, descripcion = :descripcion, precio = :precio WHERE id = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([
+            'id' => $id,
+            'nombre' => $data['nombre'],
+            'descripcion' => $data['descripcion'],
+            'precio' => $data['precio'],
+        ]);
+        return [
+            'id' => $id,
+            'nombre' => $data['nombre'],
+            'descripcion' => $data['descripcion'],
+            'precio' => (float)$data['precio'],
+        ];  
     }
 
     public function delete(int $id): bool {
-        // Aquí iría la lógica para eliminar un producto de la base de datos
-        return true;
+        $sql = "DELETE FROM " . self::TABLE . " WHERE id = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([
+            'id' => $id
+        ]);
+        return $statement->rowCount() > 0;
     }
 }
 
