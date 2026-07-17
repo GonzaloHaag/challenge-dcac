@@ -1,0 +1,49 @@
+services:
+  app:
+    container_name: dcac-php
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true 
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/var/www
+    env_file:
+      - ./backend/.env
+    
+  db:
+    container_name: dcac-mysql
+    image: mysql:8.4
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-prootpassword",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: always
+    ports:
+      - 3308:3306
+    env_file:
+      - ./backend/.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/001_create_productos_table.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
+    
+

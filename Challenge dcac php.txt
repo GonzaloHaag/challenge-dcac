@@ -1,0 +1,166 @@
+﻿Challenge PHP
+Descripción del Challenge
+Título:
+Implementación de una API REST para la Gestión de Productos
+Objetivo:
+Desarrollar una API REST sencilla para gestionar un catálogo de productos. La API debe permitir realizar operaciones CRUD sobre los productos y calcular el precio en dólares estadounidenses utilizando una variable de entorno que indique el valor actual del dólar.
+
+
+El desarrollo debe realizarse sin el uso de herramientas de inteligencia artificial, a fin de poder evaluar mejor el enfoque, criterio y forma de trabajo del candidato.
+________________
+
+
+Requerimientos:
+1. Base de Datos:
+* Crear una base de datos MySQL con una tabla llamada productos.
+
+* La tabla productos debe tener los siguientes campos:
+
+   * id (INT, PRIMARY KEY, AUTO_INCREMENT)
+
+   * nombre (VARCHAR(255))
+
+   * descripcion (TEXT)
+
+   * precio (DECIMAL(10,2)) - Precio en Pesos Argentinos.
+
+   * created_at (TIMESTAMP, default: current_timestamp)
+
+   * updated_at (TIMESTAMP, default: current_timestamp on update current_timestamp)
+
+________________
+
+
+2. Variable de Entorno:
+      * Definir una variable de entorno PRECIO_USD que contenga el valor actual del dólar estadounidense. Esta variable debe ser utilizada para calcular y mostrar el precio de los productos en dólares en las respuestas de la API.
+
+________________
+
+
+3. Endpoints de la API:
+         * GET /productos: Obtener una lista de todos los productos, mostrando tanto el precio en Pesos Argentinos (precio) como el precio calculado en Dólares (precio_usd).
+
+         * GET /productos/{id}: Obtener los detalles de un producto específico, incluyendo ambos precios.
+
+         * POST /productos: Crear un nuevo producto.
+
+         * PUT /productos/{id}: Actualizar un producto existente.
+
+         * DELETE /productos/{id}: Eliminar un producto.
+
+________________
+
+
+4. Detalles Técnicos:
+            * Utilizar PHP nativo
+
+            * No se permite el uso de frameworks, pero se pueden utilizar librerías específicas si lo considera necesario (por ejemplo, para manejo de rutas o sanitización de entradas).
+
+            * Implementar control de errores y manejo de excepciones apropiado.
+
+            * Asegurarse de que las respuestas de la API sigan el estándar JSON.
+
+            * Implementar la conversión de precios en la capa lógica de la aplicación, utilizando la variable de entorno PRECIO_USD.
+
+            * Utilizar patrones de diseño básicos, como el patrón MVC (Modelo-Vista-Controlador) o ADR (Action domain responder) o el patrón Singleton para la conexión a la base de datos.
+
+________________
+
+
+5. Contenedor Docker:
+               * Crear un contenedor Docker para ejecutar la aplicación PHP.
+
+               * Crear un contenedor Docker para la base de datos MySQL, incluyendo un script para crear la estructura de la tabla productos.
+
+               * Incluir un archivo docker-compose.yml para orquestar ambos contenedores.
+
+________________
+
+
+6. Evaluación:
+                  * Claridad y organización del código.
+
+                  * Uso correcto de patrones de diseño.
+
+                  * Estructura y funcionalidad de la API REST.
+
+                  * Implementación y uso de la variable de entorno para la conversión de moneda.
+
+                  * Manejo de bases de datos (consultas optimizadas, protección contra inyecciones SQL, etc.).
+
+                  * Creación y configuración de contenedores Docker.
+
+________________
+
+
+Entrega:
+                     * El código debe ser subido a un repositorio de Git (GitHub, GitLab, etc.).
+
+                     * Incluir un archivo README que explique cómo configurar el entorno, establecer la variable de entorno PRECIO_USD, y probar la API.
+
+                     * Incluir el archivo docker-compose.yml y cualquier archivo necesario para construir los contenedores Docker.
+
+________________
+
+
+Font
+Objetivo:
+Desarrollar una interfaz web sencilla utilizando HTML, CSS y JavaScript para consumir la API REST de gestión de productos creada en el challenge anterior. La interfaz debe permitir listar, agregar, editar y eliminar productos, mostrando los precios tanto en pesos argentinos como en dólares estadounidenses.
+________________
+
+
+Requerimientos:
+1. Funcionalidades:
+                        * Listado de Productos:
+
+                           * Crear una tabla o lista que muestre todos los productos con sus nombres, descripciones, precios en pesos argentinos y precios en dólares.
+
+                              * Agregar Producto:
+
+                                 * Incluir un formulario para agregar nuevos productos, que acepte el nombre, descripción y precio en pesos argentinos.
+
+                                    * Editar Producto:
+
+                                       * Incluir una opción para editar los detalles de un producto existente.
+
+                                          * Eliminar Producto:
+
+                                             * Incluir un botón para eliminar productos de la lista.
+
+                                                * Actualizar Dinámica de Precios:
+
+                                                   * Cada vez que se muestre el precio en dólares, debe calcularse dinámicamente usando la API.
+
+________________
+
+
+2. Detalles Técnicos:
+                                                      * Utilizar únicamente HTML, CSS y JavaScript puro (sin frameworks como React, Angular, etc.).
+
+                                                      * Realizar las solicitudes a la API REST utilizando fetch o XMLHttpRequest.
+
+                                                      * Manejar las respuestas y errores de la API de forma adecuada (e.g., mostrar mensajes de éxito o error al usuario).
+
+                                                      * Asegurar que la interfaz sea funcional y fácil de usar, aunque no es necesario un diseño avanzado.
+
+________________
+
+
+3. Evaluación:
+                                                         * Capacidad para interactuar con la API REST desde el frontend.
+
+                                                         * Manejo de solicitudes asíncronas en JavaScript.
+
+                                                         * Organización y claridad del código.
+
+                                                         * Funcionalidad y usabilidad de la interfaz.
+
+                                                         * Manejo básico de errores y mensajes de retroalimentación al usuario.
+
+________________
+
+
+Entrega:
+                                                            * El código debe ser subido al mismo repositorio de Git utilizado en el challenge anterior o en un repositorio separado.
+
+                                                            * Incluir un archivo README que explique cómo ejecutar el frontend y cómo probar la interacción con la API.
