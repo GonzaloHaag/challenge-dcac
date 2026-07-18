@@ -6,6 +6,7 @@ require_once __DIR__ . '/../autoload.php';
 
 use App\Controller\ProductController;
 use App\Core\Config;
+use App\Core\Cors;
 use App\Core\Database;
 use App\Core\DatabaseConfiguration;
 use App\Core\Response;
@@ -15,7 +16,10 @@ use App\Service\CurrencyConverterUsd;
 use App\Service\ProductService;
 
 try {
+    Cors::handle();
+
     $router = new Router();
+    
     $databaseConfig = new DatabaseConfiguration();
     $pdo = Database::getInstance($databaseConfig)->getConnection();
     $productRepository = new MYSQLProductRepository($pdo);
