@@ -46,6 +46,9 @@ class Product {
         if($precio < 0) {
             throw new \InvalidArgumentException("El precio no puede ser negativo.");
         }
+        if($precio > 99999999.99) {
+            throw new \InvalidArgumentException("El precio excede el máximo permitido.");
+        }
         $this->precio = $precio;
     }
 

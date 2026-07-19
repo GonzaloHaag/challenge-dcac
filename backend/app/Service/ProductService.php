@@ -32,6 +32,7 @@ class ProductService implements ProductServiceInterface
         if (!isset($data['nombre'], $data['precio'])) {
             throw new \InvalidArgumentException('Faltan datos requeridos para crear el producto.');
         }
+        $this->assertValidTypes($data);
         $product = new Product(null, $data['nombre'], $data['descripcion'] ?? null, (float)$data['precio']);
         $productCreated = $this->productRepository->create([
             'nombre' => $product->getNombre(),
@@ -48,10 +49,12 @@ class ProductService implements ProductServiceInterface
         if(!isset($data['nombre'], $data['precio'])) {
             throw new \InvalidArgumentException('Faltan datos requeridos para actualizar el producto.');
         }
+        $this->assertValidTypes($data);
+        $product = new Product($id, $data['nombre'], $data['descripcion'] ?? null, (float)$data['precio']);
         $productUpdated = $this->productRepository->update($id, [
-            'nombre' => $data['nombre'],
-            'descripcion' => $data['descripcion'] ?? null,
-            'precio' => (float)$data['precio'],
+            'nombre' => $product->getNombre(),
+            'descripcion' => $product->getDescripcion(),
+            'precio' => $product->getPrecio(),
         ]);
         if (!$productUpdated) return null;
         return $this->formatProduct($productUpdated);
@@ -71,5 +74,18 @@ class ProductService implements ProductServiceInterface
         $product['precio'] = (float) $product['precio'];
         $product['precio_usd'] = round($this->currencyConverter->convert($product['precio']), 2);
         return $product;
+    }
+    
+    private function assertValidTypes(array $data): void
+    {
+        if (!is_string($data['nombre'])) {
+            throw new \InvalidArgumentException('El nombre debe ser un texto.');
+        }
+        if (!is_numeric($data['precio'])) {
+            throw new \InvalidArgumentException('El precio debe ser un valor numérico.');
+        }
+        if (isset($data['descripcion']) && !is_string($data['descripcion'])) {
+            throw new \InvalidArgumentException('La descripción debe ser un texto.');
+        }
     }
 }

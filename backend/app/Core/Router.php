@@ -56,7 +56,7 @@ class Router
         }
 
         Response::json(
-            ['error' => 'Route not found'],
+            ['error' => 'Ruta no encontrada'],
             404
         );
     }

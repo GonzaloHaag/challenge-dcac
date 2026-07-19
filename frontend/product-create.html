@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Challenge DCAC">
+    <title>Challenge DCAC - Crear Producto</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body class="container">
+    <header>
+        <h1>CHALLENGE DCAC</h1>
+    </header>
+    <main>
+        <section>
+            <form id="product-form">
+                <h2> Crear producto </h2>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" name="precio" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-submit">
+                    Crear Producto
+                </button>
+                <a href="index.html" title="Regresar" class="btn btn-outline">Regresar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script type="module" src="js/product-create.js"></script>
+</body>
+</html>

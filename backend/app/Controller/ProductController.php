@@ -28,16 +28,14 @@ class ProductController
 
     public function store(): void
     {
-        $json = file_get_contents("php://input");
-        $body = json_decode($json, true);
+        $body = $this->decodeBody();
         $product = $this->productService->create($body);
         Response::json($product, 201);
     }
 
     public function update(int $id): void
     {
-        $json = file_get_contents("php://input");
-        $body = json_decode($json, true);
+        $body = $this->decodeBody();
         $product = $this->productService->update($id, $body);
         if (!$product) {
             Response::json(['error' => 'Producto no encontrado'], 404);
@@ -54,5 +52,14 @@ class ProductController
             return;
         }
         Response::json(['message' => 'Producto eliminado'], 200);
+    }
+
+    private function decodeBody(): array
+    {
+        $body = json_decode(file_get_contents("php://input"), true);
+        if (!is_array($body)) {
+            throw new \InvalidArgumentException('El cuerpo de la petición debe ser un JSON válido.');
+        }
+        return $body;
     }
 }

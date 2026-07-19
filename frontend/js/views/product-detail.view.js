@@ -5,10 +5,15 @@ export function renderProductDetail(product) {
 
     productDetailContainer.innerHTML = `
         <div class="product-detail-header">
-           <h2>Detalle del Producto</h2>
-           <a href="index.html" title="Ver lista" class="btn">
-           Ver lista de productos
-           </a>
+           <h2>Detalle del Producto: ${product.nombre}</h2>
+           <div class="td-actions">
+               <a href="product-edit.html?id=${product.id}" title="Editar producto" class="btn btn-outline">
+                   Editar
+               </a>
+               <a href="index.html" title="Ver lista" class="btn">
+               Ver lista de productos
+               </a>
+           </div>
         </div>
         <p><strong>ID:</strong> ${product.id}</p>
         <p><strong>Nombre:</strong> ${product.nombre}</p>

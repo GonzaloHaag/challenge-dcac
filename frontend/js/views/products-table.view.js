@@ -24,7 +24,7 @@ export function renderProducts(products) {
             <td>${product.descripcion ?? 'Sin descripción'}</td>
             <td>${formatCurrency(product.precio, 'ARS')}</td>
             <td>${formatCurrency(product.precio_usd, 'USD')}</td>
-            <td>
+            <td class="td-actions">
                 <a href="product-detail.html?id=${product.id}" title="Ver detalle" class="btn btn-edit">
                     Ver detalle
                 </a>
